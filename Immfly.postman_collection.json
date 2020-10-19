@@ -33,7 +33,7 @@
 					"raw": "{\n\t\"email\": \"mm.motero@gmail.com\",\n\t\"password\":\"supersecret\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/countries?filter=and&order=desc",
+					"raw": "http://localhost:3000/countries?filter=and&order=ass",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -49,7 +49,7 @@
 						},
 						{
 							"key": "order",
-							"value": "desc"
+							"value": "ass"
 						}
 					]
 				}
@@ -76,15 +76,14 @@
 					"raw": "{\n\t\"email\": \"mm.motero@gmail.com\",\n\t\"username\": \"montss\",\n\t\"password\":\"supersecret\",\n\t\"name\": \"Montse\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/reverse/hello",
+					"raw": "http://localhost:3000/reverse",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"reverse",
-						"hello"
+						"reverse"
 					]
 				}
 			},
@@ -93,7 +92,7 @@
 		{
 			"name": "third-endpoint",
 			"request": {
-				"method": "PATCH",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -107,7 +106,7 @@
 					"raw": "{\n\t\"email\": \"yosamac@gmail.com\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/append?start=hello&end=bye",
+					"raw": "http://localhost:3000/append",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,11 +118,13 @@
 					"query": [
 						{
 							"key": "start",
-							"value": "hello"
+							"value": "hello",
+							"disabled": true
 						},
 						{
 							"key": "end",
-							"value": "bye"
+							"value": "bye",
+							"disabled": true
 						}
 					]
 				}
