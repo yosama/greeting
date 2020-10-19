@@ -1,9 +1,11 @@
 import {
     Controller, UseFilters,
     Get, Query, HttpStatus,
+    Param
 } from '@nestjs/common';
 import {
-    ApiResponse, ApiTags, ApiQuery
+    ApiResponse, ApiTags,
+    ApiQuery, ApiParam
 } from '@nestjs/swagger';
 
 import {
@@ -11,7 +13,7 @@ import {
 } from './dto/request/get.country.dto';
 
 import {
-    CountryDataDTO
+    CountryDataDTO,
 } from './dto/greeting.dto';
 import { GreetingService } from './greeting.service';
 
@@ -19,6 +21,7 @@ import {
     ServiceHttpResponse,
     HttpExceptionFilter,
 } from '../common/exception.filter';
+import { ParamPipe, ParamsDTO } from './dto/request/param.dto';
 
 
 @Controller()
@@ -51,5 +54,27 @@ export class GreetingController {
     ): Promise<CountryDataDTO[]> {
         return this.greetingService.getCountryData(queryParams);
     }
+
+    @Get('/reverse/:urlParam')
+    @ApiParam({ name: 'urlParam', type: String })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'The data was successfully returned',
+        type: String
+    })
+    @ApiResponse({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Internal error',
+        type: ServiceHttpResponse
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_REQUEST,
+        description: 'Request doesn\'t meet the schema',
+        type: ServiceHttpResponse
+    })
+    readResource(@Param(ParamPipe) params: ParamsDTO): string {
+        return this.greetingService.reverse(params.urlParam);
+    }
+
 
 }

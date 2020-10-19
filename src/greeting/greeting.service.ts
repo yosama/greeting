@@ -42,6 +42,13 @@ export class GreetingService {
 
                 return err;
             });
+    }
 
+    reverse(urlParam:string): string {
+        this.logger.debug(`Reversing url param '${ urlParam }'`);
+
+        return urlParam.split('')
+            .reverse()
+            .join('');
     }
 }
