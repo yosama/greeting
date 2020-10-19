@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import nock from 'nock';
 
 import { MainModule } from '../../src/main.module';
 import { GreetingService } from '../../src/greeting/greeting.service';
@@ -26,6 +27,10 @@ describe('GreetingController (e2e)', () => {
         await app.init();
 
         greetingService = app.get<GreetingService>(GreetingService);
+    });
+
+    afterAll(() => {
+        nock.cleanAll();
     });
 
     describe ('/countries', () => {
@@ -78,6 +83,27 @@ describe('GreetingController (e2e)', () => {
                     expect(greetingServiceSpy).not.toHaveBeenCalled();
                     expect(res.body).toBeDefined();
                     expect(res.body.status).toEqual(HttpStatus.BAD_REQUEST);
+                    greetingServiceSpy.mockRestore();
+                });
+        });
+
+        it('/countries (GET) 500', () => {
+            const msgError = 'Jsonbin API not available';
+
+            nock('https://api.jsonbin.io')
+                .get('/b/5f69afbe65b18913fc510ce8')
+                .replyWithError(msgError);
+
+            const greetingServiceSpy = jest.spyOn(greetingService, 'getCountryData');
+
+            return request(app.getHttpServer())
+                .get('/countries')
+                .expect(HttpStatus.INTERNAL_SERVER_ERROR)
+                .then(res => {
+                    expect(greetingServiceSpy).toHaveBeenCalledTimes(ONE_TIME);
+                    expect(res.body).toBeDefined();
+                    expect(res.body.status).toEqual(HttpStatus.INTERNAL_SERVER_ERROR);
+                    expect(res.body.message).toEqual(msgError);
                     greetingServiceSpy.mockRestore();
                 });
         });
