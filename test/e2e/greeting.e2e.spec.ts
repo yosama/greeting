@@ -83,4 +83,23 @@ describe('GreetingController (e2e)', () => {
                 });
         });
     });
+
+    describe ('/reverse', () => {
+
+        it('/reverse (GET) 200', () => {
+
+            const param = 'hallo';
+            const greetingServiceSpy = jest.spyOn(greetingService, 'reverse');
+            const ONE_TIME = 1;
+
+            return request(app.getHttpServer())
+            .get(`/reverse/${param}`)
+            .expect(HttpStatus.OK)
+            .then(res => {
+                expect(greetingServiceSpy).toHaveBeenCalledTimes(ONE_TIME);
+                expect(res.body).toBeDefined();
+                greetingServiceSpy.mockRestore();
+            });
+        });
+    });
 });

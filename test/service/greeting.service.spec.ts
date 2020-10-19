@@ -1,4 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Chance } from 'chance';
+const chance = new Chance();
+
 
 import { GreetingService } from '../../src/greeting/greeting.service';
 import { JsonbinService } from '../../src/greeting/jsonbin.service';
@@ -130,4 +133,16 @@ describe('GreetingService', () => {
         });
     });
 
+    describe('reverse', () => {
+
+        it('should return param reverse', (done) => {
+
+            const param = 'hallo';
+            const expected = 'ollah';
+            const res = greetingService.reverse(param);
+
+            expect(res).toEqual(expected);
+            done();
+        });
+    });
 });
