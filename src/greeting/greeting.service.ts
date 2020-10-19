@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { GetCountryDTO } from './dto/request/get.country.dto';
@@ -39,9 +39,8 @@ export class GreetingService {
                 return sort(response, queryParams.order);
             })
             .catch(err => {
-                this.logger.error(` Error: ${err}`);
-
-                return err;
+                this.logger.error(`${err}`);
+                throw new HttpException(err?.message, HttpStatus.INTERNAL_SERVER_ERROR);
             });
     }
 
