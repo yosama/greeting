@@ -1,0 +1,18 @@
+version: '3'
+
+networks:
+  local-network:
+
+# docker-compose.yml
+# Add this top-level entry
+services:
+  greeting:
+    image: immfly/greeting
+    container_name: greeting
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production,
+      - SIMPLE_ARRAY=hallo,hello,bye
+    networks:
+      - local-network

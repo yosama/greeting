@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "bd5eba1a-7999-4c57-bf9c-4b029255a4f3",
+		"name": "Immfly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "first-endpoint",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InlvcyIsInN1YiI6MSwiaWF0IjoxNTY3ODc0ODM5LCJleHAiOjE1Njc4NzQ4OTl9.XeFF6th9RxC1RTwVnnZ_ubS2-0xtRsK894G3CiYHBxc",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"mm.motero@gmail.com\",\n\t\"password\":\"supersecret\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/countries?filter=and&order=desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"countries"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "and"
+						},
+						{
+							"key": "order",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "second-endpoint",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"mm.motero@gmail.com\",\n\t\"username\": \"montss\",\n\t\"password\":\"supersecret\",\n\t\"name\": \"Montse\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/reverse/hello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reverse",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "third-endpoint",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"yosamac@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/append?start=hello&end=bye",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"append"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "hello"
+						},
+						{
+							"key": "end",
+							"value": "bye"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api-json",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/api-json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api-json"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
