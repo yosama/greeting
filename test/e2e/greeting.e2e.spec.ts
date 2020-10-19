@@ -5,14 +5,16 @@ import request from 'supertest';
 import { MainModule } from '../../src/main.module';
 import { GreetingService } from '../../src/greeting/greeting.service';
 import { countriesList } from '../mock/jsonbin.mock';
+import { envs } from '../service/greeting.service.spec';
 
 describe('GreetingController (e2e)', () => {
     let app: INestApplication;
     let greetingService: GreetingService;
 
+    const ONE_TIME = 1;
+
     beforeAll(async () => {
-        process.env = Object.assign(process.env, { LOGGING_LEVEL: 'ERROR' });
-        process.env = Object.assign(process.env, { AUTH_ENABLED: false });
+        process.env = Object.assign(process.env, envs);
 
         const moduleFixture: TestingModule = await Test.createTestingModule({
             imports: [
@@ -33,7 +35,6 @@ describe('GreetingController (e2e)', () => {
                 .mockImplementation(() => {
                     return Promise.resolve(countriesList);
                 });
-            const ONE_TIME = 1;
 
             return request(app.getHttpServer())
             .get('/countries')
@@ -46,7 +47,6 @@ describe('GreetingController (e2e)', () => {
         });
 
         it('/countries (GET) 400', () => {
-            const CERO_TIME = 0;
             const greetingServiceSpy = jest.spyOn(greetingService, 'getCountryData')
                 .mockImplementation(() => {
                     return Promise.resolve(countriesList);
@@ -57,7 +57,7 @@ describe('GreetingController (e2e)', () => {
                 .query({ filtro: 'aa', orden:'desc' })
                 .expect(HttpStatus.BAD_REQUEST)
                 .then(res => {
-                    expect(greetingServiceSpy).toHaveBeenCalledTimes(CERO_TIME);
+                    expect(greetingServiceSpy).not.toHaveBeenCalled();
                     expect(res.body).toBeDefined();
                     expect(res.body.status).toEqual(HttpStatus.BAD_REQUEST);
                     greetingServiceSpy.mockRestore();
@@ -65,7 +65,6 @@ describe('GreetingController (e2e)', () => {
         });
 
         it('/countries (GET) 400', () => {
-            const CERO_TIME = 0;
             const greetingServiceSpy = jest.spyOn(greetingService, 'getCountryData')
                 .mockImplementation(() => {
                     return Promise.resolve(countriesList);
@@ -76,7 +75,7 @@ describe('GreetingController (e2e)', () => {
                 .query({ orden: 'invalid_order' })
                 .expect(HttpStatus.BAD_REQUEST)
                 .then(res => {
-                    expect(greetingServiceSpy).toHaveBeenCalledTimes(CERO_TIME);
+                    expect(greetingServiceSpy).not.toHaveBeenCalled();
                     expect(res.body).toBeDefined();
                     expect(res.body.status).toEqual(HttpStatus.BAD_REQUEST);
                     greetingServiceSpy.mockRestore();
@@ -101,5 +100,39 @@ describe('GreetingController (e2e)', () => {
                 greetingServiceSpy.mockRestore();
             });
         });
+    });
+
+    describe ('/append', () => {
+
+        it('/append (PUT) 200', () => {
+            const greetingServiceSpy = jest.spyOn(greetingService, 'updateGreetingList');
+            const ONE_TIME = 1;
+
+            return request(app.getHttpServer())
+            .put('/append')
+            .query({ start: 'hola', end: 'bye' })
+            .expect(HttpStatus.OK)
+            .then(res => {
+                expect(greetingServiceSpy).toHaveBeenCalledTimes(ONE_TIME);
+                expect(res.body).toBeDefined();
+                greetingServiceSpy.mockRestore();
+            });
+        });
+
+        it('/append (PUT) 400', () => {
+            const greetingServiceSpy = jest.spyOn(greetingService, 'updateGreetingList');
+
+            return request(app.getHttpServer())
+            .put('/append')
+            .query({ invalidStart: 'hola', end: 'bye' })
+            .expect(HttpStatus.BAD_REQUEST)
+            .then(res => {
+                expect(greetingServiceSpy).not.toHaveBeenCalled();
+                expect(res.body).toBeDefined();
+                greetingServiceSpy.mockRestore();
+            });
+        });
+
+
     });
 });

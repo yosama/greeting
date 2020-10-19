@@ -1,7 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Chance } from 'chance';
-const chance = new Chance();
-
 
 import { GreetingService } from '../../src/greeting/greeting.service';
 import { JsonbinService } from '../../src/greeting/jsonbin.service';
@@ -11,11 +8,18 @@ import {
 } from '../../src/greeting/dto/greeting.dto';
 import { MainModule } from '../../src/main.module';
 
+export const envs = {
+    LOGGING_LEVEL: 'ERROR',
+    SIMPLE_ARRAY: 'hallo,hola,ciao,bonjour,oi',
+    NODE_ENV: 'development'
+};
+
 describe('GreetingService', () => {
     let greetingService: GreetingService;
 
     beforeAll(async () => {
-        process.env = Object.assign(process.env, { LOGGING_LEVEL: 'ERROR' });
+
+        process.env = Object.assign(process.env, envs);
 
         const app: TestingModule = await Test.createTestingModule({
             imports: [MainModule]
@@ -143,6 +147,37 @@ describe('GreetingService', () => {
 
             expect(res).toEqual(expected);
             done();
+        });
+    });
+
+    describe('updateGreetingList', () => {
+
+        const query = { start: 'hola', end:'adios' };
+        it('should return SIMPLE_ARRAY list updated successful', (done) => {
+
+            const res = greetingService.updateGreetingList(query);
+
+            const FIRST_ELEMENT = 0;
+            const firstItem = res[FIRST_ELEMENT];
+            const lastItem = res.pop();
+
+            expect(res).toBeInstanceOf(Array);
+            expect(firstItem).toEqual(query.start);
+            expect(lastItem).toEqual(query.end);
+
+            process.env = Object.assign(process.env, envs);
+            done();
+        });
+
+        it('should return only SIMPLE_ARRAY list', (done) => {
+
+            query.start = undefined; query.end = undefined;
+            const res = greetingService.updateGreetingList(query);
+
+            expect(res).toBeInstanceOf(Array);
+            expect(res.length).toBeGreaterThan(1);
+            done();
+
         });
     });
 });
