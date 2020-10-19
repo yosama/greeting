@@ -29,6 +29,14 @@ $ npm install
 npm start start:dev
 ```
 
+## API v1 info
+
+### Swagger
+
+The API can be used with the path: 
+[API V1](localhost:3000/api)
+
+
 ## General configuration
 
 ### Environment variables
@@ -76,6 +84,13 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ```shell
 npm run release
 ```
+
+### Answers
+
+- SQL: SQLite, SQL Server, MySQL, PostgreSQL
+- NOSQL: MongoDB, DynamoDB, Elastic Search
+- RabbitMQ: Yes, less than a year.
+- Git: Yes
 
 ## License
 
