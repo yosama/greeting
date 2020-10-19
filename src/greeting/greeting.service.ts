@@ -1,24 +1,25 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 import { GetCountryDTO } from './dto/request/get.country.dto';
-import {
-    CountryDataDTO,
-} from './dto/greeting.dto';
+import { CountryDataDTO, } from './dto/greeting.dto';
+import { CreateGreetingDTO } from './dto/request/create.greeting.dto';
 import { GreetingLogger } from '../logger/logger.service';
 import { JsonbinService } from './jsonbin.service';
-import {
-    sort
-} from './greeting.helpers';
+import { sort } from './greeting.helpers';
 
 @Injectable()
 export class GreetingService {
-
+    private greetings: string[];
     constructor(
         private readonly logger: GreetingLogger,
-        private readonly jsonbinService: JsonbinService
+        private readonly jsonbinService: JsonbinService,
+        private readonly config: ConfigService
     ) {
         const instance = this.constructor;
         logger.setContext(instance.name);
+        this.greetings = this.config.get<string>('greeting.simpleArray')
+            .split(',');
     }
 
     getCountryData(queryParams: GetCountryDTO): Promise<CountryDataDTO[]> {
@@ -50,5 +51,18 @@ export class GreetingService {
         return urlParam.split('')
             .reverse()
             .join('');
+    }
+
+    updateGreetingList(queryParams: CreateGreetingDTO):string[] {
+        this.logger.debug(`Appending greeting in simple array '${ queryParams }'`);
+
+        if (queryParams?.start) {
+            this.greetings.unshift(queryParams.start);
+        }
+        if (queryParams?.end) {
+            this.greetings.push(queryParams.end);
+        }
+
+        return this.greetings;
     }
 }

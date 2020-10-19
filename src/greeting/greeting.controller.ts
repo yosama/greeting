@@ -1,7 +1,7 @@
 import {
     Controller, UseFilters,
     Get, Query, HttpStatus,
-    Param
+    Param, Put
 } from '@nestjs/common';
 import {
     ApiResponse, ApiTags,
@@ -11,7 +11,11 @@ import {
 import {
     GetCountryDTO, GetCountryPipe, Order
 } from './dto/request/get.country.dto';
-
+import { ParamPipe, ParamsDTO } from './dto/request/param.dto';
+import {
+    CreateGreetingDTO,
+    CreateGreetingPipe,
+} from './dto/request/create.greeting.dto';
 import {
     CountryDataDTO,
 } from './dto/greeting.dto';
@@ -21,8 +25,6 @@ import {
     ServiceHttpResponse,
     HttpExceptionFilter,
 } from '../common/exception.filter';
-import { ParamPipe, ParamsDTO } from './dto/request/param.dto';
-
 
 @Controller()
 @ApiTags('Greeting')
@@ -76,5 +78,29 @@ export class GreetingController {
         return this.greetingService.reverse(params.urlParam);
     }
 
+    @Put('/append')
+    @ApiQuery({ name: 'start', type: String, required: false })
+    @ApiQuery({ name: 'end', type: String, required: false })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'The data was successfully returned',
+        type: String,
+        isArray: true
+    })
+    @ApiResponse({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Internal error',
+        type: ServiceHttpResponse
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_REQUEST,
+        description: 'Request doesn\'t meet the schema',
+        type: ServiceHttpResponse
+    })
+    updateGreetingList(
+        @Query(CreateGreetingPipe) queryParams: CreateGreetingDTO
+    ): string[] {
+        return this.greetingService.updateGreetingList(queryParams);
+    }
 
 }

@@ -9,5 +9,8 @@ export default () => ({
   },
   jsonbin: {
     api: process.env.JSONBIN_API || 'https://api.jsonbin.io/b/5f69afbe65b18913fc510ce8'
-  }
+  },
+  greeting: {
+    simpleArray: process.env.SIMPLE_ARRAY || 'hallo,hola,ciao,bonjour,oi'
+  },
 });
