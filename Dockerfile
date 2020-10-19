@@ -2,14 +2,26 @@
 # Greeting #
 ############
 
-FROM node:12-slim
-
-LABEL maintainer="Yosnier Samon M."
+FROM node:12-slim as base
 
 ENV USER dockerfileUser
 
 # Copy our App dependencies and credentials
-# This is done early so deps can be cached by docker
+# This is done early so deps can be cached by dockerZ
+WORKDIR /home/$USER
+
+COPY --chown=root:root . .
+
+RUN npm install 
+RUN npm run build
+
+# ======== THE FINAL STAGE ======
+FROM node:12-slim
+
+LABEL maintainer="Yosnier Samon"
+
+ENV USER dockerfileUser
+
 WORKDIR /home/$USER
 
 COPY package.json package.json
@@ -27,9 +39,8 @@ RUN npm install --production && \
     rm -rf /tmp/npm-* && \
     rm -rf package*.json
 
-
-# Add the rest of the app
-COPY . .
+# Copy dist
+COPY --from=base /home/$USER/dist .
 
 EXPOSE 3000
 
