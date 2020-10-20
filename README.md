@@ -46,6 +46,8 @@ The API can be used with the path:
 | API_HOST              | API host                                   | `0.0.0.0`        |
 | API_PORT              | API port                                   | `3000`           |
 | ENDPOINT_ROUTE        | Global URL prefix                          | NO DEFAULT VALUE |
+| SIMPLE_ARRAY          | Greeting list                              | 'hallo,hola,ciao,bonjour,oi'  |
+| NODE_ENV              | Production or development mode| 'development'  |
 | **Section of other services**                                             |||
 | API_URL               | Jsonbin API url                            | ` https://api.jsonbin.io/b/5f69afbe65b18913fc510ce8`|
 
