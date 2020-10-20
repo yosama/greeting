@@ -26,6 +26,8 @@ jobs:
     - name: Generate release
       uses: actions-go/push@master
       with:
+        author-email: yosamac@gmail.com
+        author-name: Yosnier Samon
         commit-message: '[Auto] Generated release'
         remote: origin
     - name: Build and push docker
