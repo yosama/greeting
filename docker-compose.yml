@@ -7,7 +7,7 @@ networks:
 # Add this top-level entry
 services:
   greeting:
-    image: immfly/greeting:1.0.0-ccffdf9
+    image: immfly/greeting:1.0.0-791e891v
     container_name: greeting
     ports:
       - '3000:3000'
