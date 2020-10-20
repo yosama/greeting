@@ -22,6 +22,8 @@ jobs:
     - run: npm install
     - run: npm run build --if-present
     - run: npm test
+    - run: git config --global user.email yosamac@gmail.com
+    - run: git config --global user.name Yosnier Samon
     - run: npm run release
     - name: Generate release
       uses: actions-go/push@master
