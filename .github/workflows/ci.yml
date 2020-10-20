@@ -22,14 +22,14 @@ jobs:
     - run: npm install
     - run: npm run build --if-present
     - run: npm test
-    - run: git config --global user.email yosamac@gmail.com
-    - run: git config --global user.name Yosnier Samon
+    - run: git config --global user.email ci@greeting.com
+    - run: git config --global user.name CI
     - run: npm run release
     - name: Generate release
       uses: actions-go/push@master
       with:
-        author-email: yosamac@gmail.com
-        author-name: Yosnier Samon
+        author-email: ci@greeting.com
+        author-name: CI
         commit-message: '[Auto] Generated release'
         remote: origin
     - name: Build and push docker
