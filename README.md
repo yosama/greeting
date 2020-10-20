@@ -87,6 +87,22 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 npm run release
 ```
 
+## Docker
+
+### Generate development Docker image
+```shell
+npm run build:dev-image
+```
+
+### Generate production Docker image
+```shell
+npm run build:pro-image
+```
+### Docker compose
+```shell
+docker-compose up greeting
+```
+
 ### Answers
 
 - SQL: SQLite, SQL Server, MySQL, PostgreSQL
