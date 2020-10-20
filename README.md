@@ -34,7 +34,7 @@ npm start start:dev
 ### Swagger
 
 The API can be used with the path: 
-[API V1](localhost:3000/api)
+[API V1](http://localhost:3000/api)
 
 
 ## General configuration
