@@ -61,6 +61,7 @@
     "eslint-plugin-import": "^2.19.1",
     "husky": "^4.2.5",
     "jest": "^25.4.0",
+    "standard-version": "^9.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "25.4.0",
     "ts-loader": "^6.2.1",
