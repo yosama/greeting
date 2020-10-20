@@ -93,7 +93,6 @@ npm run release
 ```shell
 npm run build:dev-image
 ```
-
 ### Generate production Docker image
 ```shell
 npm run build:pro-image
@@ -102,6 +101,9 @@ npm run build:pro-image
 ```shell
 docker-compose up greeting
 ```
+
+### Docker hub repository
+[Greeting repository](https://hub.docker.com/repository/docker/yosama/greeting)
 
 ### Answers
 
