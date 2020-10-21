@@ -13,9 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 | Node      | 12.XX.XX |
 | NPM       | 6.XX.XX  |
 
-### Installing
-
-You will need to login at aws-cli and npm to be able to install the private packages. Contact the DevOps the gain access.
+### Download and install dependencies
 
 ```shell
 $ git clone https://github.com/yosama/greeting.git
@@ -46,8 +44,9 @@ The API can be used with the path:
 | API_HOST              | API host                                   | `0.0.0.0`        |
 | API_PORT              | API port                                   | `3000`           |
 | ENDPOINT_ROUTE        | Global URL prefix                          | NO DEFAULT VALUE |
-| SIMPLE_ARRAY          | Greeting list                              | 'hallo,hola,ciao,bonjour,oi'  |
-| NODE_ENV              | Production or development mode| 'development'  |
+| SIMPLE_ARRAY          | Greeting list                              | `hallo,hola,ciao,bonjour,oi`  |
+| NODE_ENV              | Production or development mode             | `development`    |
+| LOGGING_LEVEL         | Logs level                                 | `INFO`           |
 | **Section of other services**                                             |||
 | API_URL               | Jsonbin API url                            | ` https://api.jsonbin.io/b/5f69afbe65b18913fc510ce8`|
 
