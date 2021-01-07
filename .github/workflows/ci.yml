@@ -28,7 +28,7 @@ jobs:
         git config --global user.email ci@greeting.com
         git config --global user.name CI
         npm run release
-        git push --follow-tags 
+        git push --follow-tags origin main
     - name: Build and push docker
       uses: docker/build-push-action@v1
       with:
